@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>License Desk · Sign in</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <canvas id="field"></canvas>
+  <div class="login-wrap">
+    <form class="login stack" method="post" action="/login">
+      <div class="mark">LD</div>
+      <h1>License Desk</h1>
+      <p>A quiet view of customers and licenses. No live keys, no payments.</p>
+      {% if error %}<div class="error">{{ error }}</div>{% endif %}
+      <div>
+        <label for="username">User</label>
+        <input id="username" name="username" autocomplete="username" required>
+      </div>
+      <div>
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" autocomplete="current-password" required>
+      </div>
+      <button class="solid" type="submit">Sign in</button>
+      <p class="foot">Demo user: DemoMode · password D!D!D! · Sign-up is off.</p>
+    </form>
+  </div>
+  <script src="/static/field.js"></script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block body %}
+<section class="panel">
+  <h2>Customers</h2>
+  <p class="sub">Masked contacts. Nothing here is a real account.</p>
+  {% if user.role == 'admin' %}
+  <form class="form" method="post" action="/customers">
+    <input name="name" placeholder="Name" required>
+    <input name="email" type="email" placeholder="Email" required>
+    <input name="plan" placeholder="Plan" value="Desk" required>
+    <button class="solid" type="submit">Add customer</button>
+  </form>
+  {% else %}
+  <p class="locked">DemoMode can view this list. Creating customers is admin-only.</p>
+  {% endif %}
+  <form class="form tight" method="get" action="/app">
+    <input name="q" value="{{ q }}" placeholder="Search name">
+    <button class="ghost" type="submit">Search</button>
+  </form>
+  <table>
+    <thead>
+      <tr><th>Name</th><th>Email</th><th>Plan</th><th>Added</th></tr>
+    </thead>
+    <tbody>
+      {% for c in customers %}
+      <tr>
+        <td>{{ c.name }}</td>
+        <td>{{ c.email }}</td>
+        <td>{{ c.plan }}</td>
+        <td>{{ c.created_at }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}

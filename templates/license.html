@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block body %}
+<section class="panel">
+  <h2>{{ license.display_key }}</h2>
+  <p class="sub">One license. DemoMode still cannot revoke it.</p>
+  <table>
+    <tbody>
+      <tr><th>Customer</th><td>{{ license.customer_name }}</td></tr>
+      <tr><th>Email</th><td>{{ license.customer_email }}</td></tr>
+      <tr><th>Plan</th><td>{{ license.plan }}</td></tr>
+      <tr><th>Status</th><td><span class="pill {{ license.status }}">{{ license.status }}</span></td></tr>
+      <tr><th>Issued</th><td>{{ license.created_at }}</td></tr>
+    </tbody>
+  </table>
+  {% if user.role == 'admin' and license.status == 'active' %}
+  <form method="post" action="/licenses/{{ license.id }}/revoke" style="margin-top:16px">
+    <button class="danger" type="submit">Revoke</button>
+  </form>
+  {% endif %}
+</section>
+{% endblock %}

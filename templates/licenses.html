@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block body %}
+<section class="panel">
+  <h2>Licenses</h2>
+  <p class="sub">Fake keys only. DemoMode sees them masked.</p>
+  {% if user.role == 'admin' %}
+  <form class="form tight" method="post" action="/licenses">
+    <select name="customer_id" required>
+      {% for c in customers %}
+      <option value="{{ c.id }}">{{ c.name }}</option>
+      {% endfor %}
+    </select>
+    <select name="plan">
+      <option>Desk</option>
+      <option>Bench</option>
+      <option>Yard</option>
+    </select>
+    <button class="solid" type="submit">Issue license</button>
+  </form>
+  {% else %}
+  <p class="locked">DemoMode can view status. Issuing, revoking, password changes, and key generation are blocked.</p>
+  {% endif %}
+  <form class="form tight" method="get" action="/app/licenses">
+    <input name="q" value="{{ q }}" placeholder="Search customer">
+    <select name="status">
+      <option value="all" {{ 'selected' if status == 'all' else '' }}>All statuses</option>
+      <option value="active" {{ 'selected' if status == 'active' else '' }}>Active</option>
+      <option value="revoked" {{ 'selected' if status == 'revoked' else '' }}>Revoked</option>
+    </select>
+    <button class="ghost" type="submit">Search</button>
+  </form>
+  <table>
+    <thead>
+      <tr><th>Key</th><th>Customer</th><th>Plan</th><th>Status</th><th></th></tr>
+    </thead>
+    <tbody>
+      {% for lic in licenses %}
+      <tr>
+        <td class="key"><a href="/app/licenses/{{ lic.id }}">{{ lic.display_key }}</a></td>
+        <td>{{ lic.customer_name }}</td>
+        <td>{{ lic.plan }}</td>
+        <td><span class="pill {{ lic.status }}">{{ lic.status }}</span></td>
+        <td>
+          {% if user.role == 'admin' and lic.status == 'active' %}
+          <form method="post" action="/licenses/{{ lic.id }}/revoke">
+            <button class="danger" type="submit">Revoke</button>
+          </form>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}

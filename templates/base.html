@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>License Desk · {{ title }}</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <canvas id="field"></canvas>
+  <div class="shell">
+    <header class="top">
+      <a class="brand" href="/app">
+        <div class="mark">LD</div>
+        <div>
+          <strong>License Desk</strong>
+          <span>Portfolio demo</span>
+        </div>
+      </a>
+      <div class="who">
+        <span>{{ user.username }}</span>
+        <span class="role">{{ user.role }}</span>
+        <form method="post" action="/logout"><button class="ghost" type="submit">Sign out</button></form>
+      </div>
+    </header>
+    <div class="banner">Seeded demo data only. Keys are fake. DemoMode can look, not change anything.</div>
+    <section class="grid">
+      <article class="card"><em>Customers</em><strong>{{ stats.customers }}</strong></article>
+      <article class="card"><em>Active licenses</em><strong>{{ stats.active }}</strong></article>
+      <article class="card"><em>Revoked</em><strong>{{ stats.revoked }}</strong></article>
+    </section>
+    <nav class="tabs">
+      <a href="/app" class="{{ 'on' if page == 'customers' else '' }}">Customers</a>
+      <a href="/app/licenses" class="{{ 'on' if page == 'licenses' else '' }}">Licenses</a>
+      <a href="/app/audit" class="{{ 'on' if page == 'audit' else '' }}">Audit</a>
+    </nav>
+    {% block body %}{% endblock %}
+  </div>
+  <script src="/static/field.js"></script>
+</body>
+</html>

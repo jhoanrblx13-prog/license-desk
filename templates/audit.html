@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block body %}
+<section class="panel">
+  <h2>Audit</h2>
+  <p class="sub">Who issued or revoked a key. DemoMode can read this and cannot write it.</p>
+  <table>
+    <thead>
+      <tr><th>When</th><th>Who</th><th>Action</th><th>Target</th></tr>
+    </thead>
+    <tbody>
+      {% for event in events %}
+      <tr>
+        <td>{{ event.created_at }}</td>
+        <td>{{ event.actor }}</td>
+        <td>{{ event.action }}</td>
+        <td class="key">{{ event.target }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}
