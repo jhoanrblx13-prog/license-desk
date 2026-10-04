@@ -2,6 +2,8 @@
 
 Customer and license panel with a view-only login. Data is fake. No live keys, no IP addresses, no payments.
 
+Demo: https://license-desk.onrender.com
+
 Log in with this user and password to access demo
 User: DemoMode Password: D!D!D!
 
